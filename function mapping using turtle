@@ -1,0 +1,140 @@
+import math
+import turtle
+
+def generatesinx():
+	scr = turtle.Screen()
+	scr.bgcolor('lightblue')
+
+	wave = turtle.Turtle()
+	scr.reset()
+	scr.setworldcoordinates(-360,-360,360,360)
+#i=-180
+	wave.penup()
+	wave.setx(0)
+	wave.sety(-360)
+	wave.pendown()
+	wave.goto(0,360)
+
+	wave.penup()
+	wave.setx(360)
+	wave.sety(0)
+	wave.pendown()
+	wave.goto(-360,0)
+
+	wave.penup()
+	wave.setx(-180)
+	wave.sety(math.sin(math.radians(-180))*80)
+	wave.pendown()
+
+
+	for i in range(-180,180):
+    		y = math.sin(math.radians(i))
+    		wave.goto(i, y*80)
+	scr.exitonclick()
+
+def generatecosx():
+	scr = turtle.Screen()
+	scr.bgcolor('lightblue')
+
+	wave = turtle.Turtle()
+	scr.reset()
+	scr.setworldcoordinates(-360,-360,360,360)
+#i=-180
+	wave.penup()
+	wave.setx(0)
+	wave.sety(-360)
+	wave.pendown()
+	wave.goto(0,360)
+
+	wave.penup()
+	wave.setx(360)
+	wave.sety(0)
+	wave.pendown()
+	wave.goto(-360,0)
+
+	wave.penup()
+	wave.setx(-180)
+	wave.sety(math.sin(math.radians(-180))*80)
+	wave.pendown()
+
+
+	for i in range(-180,180):
+    		y = math.cos(math.radians(i))
+    		wave.goto(i, y*80)
+	scr.exitonclick()
+
+def generateadd():
+	scr = turtle.Screen()
+	scr.bgcolor('lightblue')
+
+	wave = turtle.Turtle()
+	scr.reset()
+	scr.setworldcoordinates(-360,-360,360,360)
+#i=-180
+	wave.penup()
+	wave.setx(0)
+	wave.sety(-360)
+	wave.pendown()
+	wave.goto(0,360)
+
+	wave.penup()
+	wave.setx(360)
+	wave.sety(0)
+	wave.pendown()
+	wave.goto(-360,0)
+
+	wave.penup()
+	wave.setx(-180)
+	wave.sety(math.sin(math.radians(-180))*80)
+	wave.pendown()
+
+
+	for i in range(-180,180):
+    		y = math.sin(math.radians(i)) + math.cos(math.radians(i))
+    		wave.goto(i, y*80)
+	scr.exitonclick()
+
+def generatesub():
+	scr = turtle.Screen()
+	scr.bgcolor('lightblue')
+
+	wave = turtle.Turtle()
+	scr.reset()
+	scr.setworldcoordinates(-360,-360,360,360)
+#i=-180
+	wave.penup()
+	wave.setx(0)
+	wave.sety(-360)
+	wave.pendown()
+	wave.goto(0,360)
+
+	wave.penup()
+	wave.setx(360)
+	wave.sety(0)
+	wave.pendown()
+	wave.goto(-360,0)
+
+	wave.penup()
+	wave.setx(-180)
+	wave.sety(math.sin(math.radians(-180))*80)
+	wave.pendown()
+
+
+	for i in range(-180,180):
+    		y = math.sin(math.radians(i)) - math.cos(math.radians(i))
+    		wave.goto(i, y*80)
+	scr.exitonclick()
+
+while(1):
+	print "Press 1 for sinx function \n Press 2 for cosx function \n Press 3 for sinx+cosx function \n Press 4 for sinx-cosx function \n Press 5 to exit "
+	var = raw_input()
+	if (int(var)==1):
+		generatesinx()
+	elif(int(var)==2):
+		generatecosx()
+	elif(int(var)==3):
+		generateadd()
+	elif(int(var)==4):
+		generatesub()
+	else:
+		break
