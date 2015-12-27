@@ -1,0 +1,164 @@
+__author__ = 'sudhanshu'
+
+from operator import itemgetter, attrgetter
+
+import re
+
+def printinfile(onedata):
+    writefile = open("output_3.txt","w")
+    writefile.truncate()
+    for i in range(len(onedata)):
+        for j in range(3):
+            if onedata[i][j] == 150 or onedata[i][j] == float('inf'):
+                writefile.write(" ")
+            else:
+                writefile.write(str(onedata[i][j])+" ")
+            #print onedata[i][j],
+        writefile.write("\n")
+
+
+def sortsingle(onedata,ord1,ord2,ord3):
+    if len(onedata)>1:
+        mid = len(onedata)//2
+        lefthalf = onedata[:mid]
+        righthalf = onedata[mid:]
+
+        sortsingle(lefthalf,ord1,ord2,ord3)
+        sortsingle(righthalf,ord1,ord2,ord3)
+
+        i=0
+        j=0
+        k=0
+        while i < len(lefthalf) and j < len(righthalf):
+            if lefthalf[i][ord1] < righthalf[j][ord1]:
+                onedata[k]=lefthalf[i]
+                i=i+1
+            elif lefthalf[i][ord1] == righthalf[j][ord1]:
+                if lefthalf[i][ord2] < righthalf[j][ord2]:
+                    onedata[k]=lefthalf[i]
+                    i=i+1
+                elif lefthalf[i][ord2] == righthalf[j][ord2]:
+                    if lefthalf[i][ord3] < righthalf[j][ord3]:
+                        onedata[k]=lefthalf[i]
+                        i=i+1
+                    else:
+                        onedata[k]=righthalf[j]
+                        j=j+1
+                else:
+                    onedata[k]=righthalf[j]
+                    j=j+1
+            else:
+                onedata[k]=righthalf[j]
+                j=j+1
+            k=k+1
+
+        while i < len(lefthalf):
+            onedata[k]=lefthalf[i]
+            i=i+1
+            k=k+1
+
+        while j < len(righthalf):
+            onedata[k]=righthalf[j]
+            j=j+1
+            k=k+1
+
+
+    printinfile(onedata)
+        #print "\n"
+
+print "Enter no. of files"
+
+n = input()
+files = []
+onedata = []
+x=n
+i=0
+j = 0
+print "give file names"
+print
+while(n):
+    #onefile = []
+    var = raw_input()
+    files.append(var)
+    data = open(var,"r")
+
+    filedata = data.readline()
+    while(filedata):
+        temdata = [None for i in range(3)]
+        match = re.search('(\D+)\s(\d+)\s(\d+)',filedata)
+        if match:
+            temdata[0] = match.group(1)
+            temdata[1] = int(match.group(2))
+            temdata[2] = int(match.group(3))
+        else:
+            match = re.search('\D+',filedata)
+            temdata[0] = match.group()
+            match = re.search('(\d+)\s(\d+)',filedata)
+            if match:
+                temdata[1] = int(match.group(1))
+                temdata[2] = int(match.group(2))
+            else:
+                match = re.search('\d+',filedata)
+                check = match.group()
+                if int(check) in range(1,120):
+                    temdata[1] = int(check)
+                    temdata[2] = float('inf')
+                else:
+                    temdata[1] = 150
+                    temdata[2] = int(check)
+        onedata.append(temdata)
+        filedata = data.readline()
+
+    #onedata.append(onefile)
+    i = i + 1
+    n = n-1
+
+#n=x
+#print onedata[0][0]
+
+
+#dict = {'name':0 , 'age':1 , 'salary':2}
+print "input the order of sorting with space"
+
+order = raw_input()
+order = order.split()
+no = len(order)
+if no == 1:
+    if order[0]=='name':
+        sortsingle(onedata,0,1,2)
+    elif order[0]=='age':
+        sortsingle(onedata,1,0,2)
+    else:
+        sortsingle(onedata,2,0,1)
+elif no==2:
+    if order[0]=='name' and order[1]=='age':
+        sortsingle(onedata,0,1,2)
+    if order[0]=='name' and order[1]=='salary':
+        sortsingle(onedata,0,2,1)
+    if order[0]=='age' and order[1]=='name':
+        sortsingle(onedata,1,0,2)
+    if order[0]=='age' and order[1]=='salary':
+        sortsingle(onedata,1,2,0)
+    if order[0]=='salary' and order[1]=='name':
+        sortsingle(onedata,2,0,1)
+    if order[0]=='salary' and order[1]=='age':
+        sortsingle(onedata,2,1,0)
+elif no ==3:
+    if order[0]=='name' and order[1]=='age' and order[2]=='salary':
+        sortsingle(onedata,0,1,2)
+    if order[0]=='age' and order[1]=='name' and order[2]=='salary':
+        sortsingle(onedata,1,0,2)
+    if order[0]=='age' and order[1]=='salary' and order[2]=='name':
+        sortsingle(onedata,1,2,0)
+    if order[0]=='salary' and order[1]=='name' and order[2]=='age':
+        sortsingle(onedata,2,0,1)
+    if order[0]=='salary' and order[1]=='age' and order[2]=='name':
+        sortsingle(onedata,2,1,0)
+    if order[0]=='name' and order[1]=='salary' and order[2]=='age':
+        sortsingle(onedata,0,2,1)
+
+
+
+
+
+#print onedata
